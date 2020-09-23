@@ -1,7 +1,7 @@
 package stats
 
 import (
-	"github.com/root5427/bank/pkg/bank/types"
+	"github.com/root5427/bank/pkg/types"
 )
 
 // Avg calcs avg payment sum
