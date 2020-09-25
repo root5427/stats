@@ -55,3 +55,23 @@ func CategoriesTotal(payments []types.Payment) map[types.Category]types.Money {
 
 	return categories
 }
+
+// CategoriesAvg returns average sun of payments in the category
+func CategoriesAvg(payments []types.Payment) map[types.Category]types.Money {
+	categories := map[types.Category]types.Money{}
+	categoriesCount := map[types.Category]int{}
+
+	for _, p := range payments {
+		if p.Status == types.StatusFail {
+			continue
+		}
+		categories[p.Category] += p.Amount
+		categoriesCount[p.Category] += 1
+	}
+
+	for k := range categories {
+		categories[k] = categories[k] / types.Money(categoriesCount[k])
+	}
+
+	return categories
+}

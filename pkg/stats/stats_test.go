@@ -100,3 +100,27 @@ func TestCategoriesTotal(t *testing.T) {
 		t.Errorf("invalid result, expected: %v, actual: %v", expected, result)
 	}
 }
+
+func TestCategoriesAvg(t *testing.T) {
+	payments := []types.Payment{
+		{ID: 1, Category: "auto", Amount: 10000, Status: types.StatusOk},
+		{ID: 2, Category: "mobile", Amount: 10000, Status: types.StatusOk},
+		{ID: 3, Category: "mobile", Amount: 10000, Status: types.StatusOk},
+		{ID: 4, Category: "withdraw", Amount: 10000, Status: types.StatusOk},
+		{ID: 5, Category: "transfer", Amount: 10000, Status: types.StatusOk},
+		{ID: 6, Category: "transfer", Amount: 10000, Status: types.StatusFail},
+		{ID: 7, Category: "transfer", Amount: 20000, Status: types.StatusOk},
+	}
+	expected := map[types.Category]types.Money{
+		"auto":     10000,
+		"mobile":   10000,
+		"withdraw": 10000,
+		"transfer": 15000,
+	}
+
+	result := CategoriesAvg(payments)
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("invalid result, expected: %v, actual: %v", expected, result)
+	}
+}
