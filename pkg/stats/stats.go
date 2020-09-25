@@ -44,3 +44,14 @@ func FilterByCategory(payments []types.Payment, category types.Category) []types
 
 	return filtered
 }
+
+// CategoriesTotal returns sum of payments in a category
+func CategoriesTotal(payments []types.Payment) map[types.Category]types.Money {
+	categories := map[types.Category]types.Money{}
+
+	for _, p := range payments {
+		categories[p.Category] += p.Amount
+	}
+
+	return categories
+}
