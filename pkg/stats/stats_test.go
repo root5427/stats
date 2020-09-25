@@ -124,3 +124,26 @@ func TestCategoriesAvg(t *testing.T) {
 		t.Errorf("invalid result, expected: %v, actual: %v", expected, result)
 	}
 }
+
+func TestPeriodsDynamic(t *testing.T) {
+	first := map[types.Category]types.Money{
+		"auto":     10,
+		"food":     20,
+		"withdraw": 30,
+	}
+	second := map[types.Category]types.Money{
+		"auto":   10,
+		"food":   25,
+		"mobile": 5,
+	}
+	want := map[types.Category]types.Money{
+		"auto":     0,
+		"food":     5,
+		"mobile":   5,
+		"withdraw": 30,
+	}
+	got := PeriodsDynamic(first, second)
+	if !reflect.DeepEqual(want, got) {
+		t.Errorf("want: %v, got: %v", want, got)
+	}
+}
