@@ -136,14 +136,14 @@ func TestPeriodsDynamic(t *testing.T) {
 		"food":   25,
 		"mobile": 5,
 	}
-	want := map[types.Category]types.Money{
+	expected := map[types.Category]types.Money{
 		"auto":     0,
 		"food":     5,
 		"mobile":   5,
-		"withdraw": 30,
+		"withdraw": -30,
 	}
-	got := PeriodsDynamic(first, second)
-	if !reflect.DeepEqual(want, got) {
-		t.Errorf("want: %v, got: %v", want, got)
+	result := PeriodsDynamic(first, second)
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("invalid result, expected: %v, actual: %v", expected, result)
 	}
 }
